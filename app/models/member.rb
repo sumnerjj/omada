@@ -1,2 +1,4 @@
 class Member < ApplicationRecord
-end
+    has_many :continuous_glucose_levels, dependent: :destroy
+  end
+  
