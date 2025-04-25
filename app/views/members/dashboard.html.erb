@@ -1,0 +1,17 @@
+<h1>Dashboard for <%= @member.name %></h1>
+
+<p>Total readings: <%= @stats[:count] %></p>
+<p>Average glucose: <%= @stats[:average] %> mg/dL</p>
+<p>Min glucose: <%= @stats[:min] %></p>
+<p>Max glucose: <%= @stats[:max] %></p>
+
+<% if @stats[:latest] %>
+  <p>Most recent: <%= @stats[:latest].value %> at <%= @stats[:latest].tested_at %></p>
+<% end %>
+
+<h2>Recent Readings</h2>
+<ul>
+  <% @glucose_levels.limit(10).each do |level| %>
+    <li><%= level.tested_at %>: <%= level.value %> mg/dL</li>
+  <% end %>
+</ul>
