@@ -11,4 +11,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  Rails.application.routes.draw do
+    resources :members, only: [:index, :show] do
+      get :dashboard, on: :member  # /members/:id/dashboard
+    end
+  end
+
+
 end
