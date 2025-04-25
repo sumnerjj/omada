@@ -22,8 +22,8 @@ class MembersController < ApplicationController
     prev_month_scope = @member.continuous_glucose_levels.where(tested_at: prev_month_start..prev_month_end)
 
     @metrics = {
-      last_7_days: calculate_metrics(week_scope, prev_week_scope),
-      current_month: calculate_metrics(month_scope, prev_month_scope),
+      last_7_days: GlucoseStatsCalculator.call(week_scope, prev_week_scope),
+      current_month: GlucoseStatsCalculator.call(month_scope, prev_month_scope),
     }
   end
 
