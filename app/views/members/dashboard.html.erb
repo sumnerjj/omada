@@ -1,17 +1,69 @@
-<h1>Dashboard for <%= @member.name %></h1>
+<h1>Glucose Dashboard for <%= @member.name %></h1>
 
-<p>Total readings: <%= @stats[:count] %></p>
-<p>Average glucose: <%= @stats[:average] %> mg/dL</p>
-<p>Min glucose: <%= @stats[:min] %></p>
-<p>Max glucose: <%= @stats[:max] %></p>
+<% week = @metrics[:last_7_days] %>
+<section>
+  <h2>Last 7 Days</h2>
+  <p>
+    <strong>Average:</strong>
+    <%= week[:average] %> mg/dL
+    <% if week[:average_change] %>
+      (<%= week[:average_change] >= 0 ? '+' : '' %><%= week[:average_change] %> mg/dL vs prior week)
+    <% else %>
+      (no prior data)
+    <% end %>
+  </p>
 
-<% if @stats[:latest] %>
-  <p>Most recent: <%= @stats[:latest].value %> at <%= @stats[:latest].tested_at %></p>
-<% end %>
+  <p>
+    <strong>Time Above Range (&gt;180):</strong>
+    <%= week[:time_above_range] %>%
+    <% if week[:time_above_range_change] %>
+      (<%= week[:time_above_range_change] >= 0 ? '+' : '' %><%= week[:time_above_range_change] %>%)
+    <% else %>
+      (no prior data)
+    <% end %>
+  </p>
 
-<h2>Recent Readings</h2>
-<ul>
-  <% @glucose_levels.limit(10).each do |level| %>
-    <li><%= level.tested_at %>: <%= level.value %> mg/dL</li>
-  <% end %>
-</ul>
+  <p>
+    <strong>Time Below Range (&lt;70):</strong>
+    <%= week[:time_below_range] %>%
+    <% if week[:time_below_range_change] %>
+      (<%= week[:time_below_range_change] >= 0 ? '+' : '' %><%= week[:time_below_range_change] %>%)
+    <% else %>
+      (no prior data)
+    <% end %>
+  </p>
+</section>
+
+<% month = @metrics[:current_month] %>
+<section>
+  <h2>This Month</h2>
+  <p>
+    <strong>Average:</strong>
+    <%= month[:average] %> mg/dL
+    <% if month[:average_change] %>
+      (<%= month[:average_change] >= 0 ? '+' : '' %><%= month[:average_change] %> mg/dL vs last month)
+    <% else %>
+      (no prior data)
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Time Above Range (&gt;180):</strong>
+    <%= month[:time_above_range] %>%
+    <% if month[:time_above_range_change] %>
+      (<%= month[:time_above_range_change] >= 0 ? '+' : '' %><%= month[:time_above_range_change] %>%)
+    <% else %>
+      (no prior data)
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Time Below Range (&lt;70):</strong>
+    <%= month[:time_below_range] %>%
+    <% if month[:time_below_range_change] %>
+      (<%= month[:time_below_range_change] >= 0 ? '+' : '' %><%= month[:time_below_range_change] %>%)
+    <% else %>
+      (no prior data)
+    <% end %>
+  </p>
+</section>
