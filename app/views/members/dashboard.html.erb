@@ -7,7 +7,7 @@
     <strong>Average:</strong>
     <%= week[:average] %> mg/dL
     <% if week[:average_change] %>
-      (<%= week[:average_change] >= 0 ? '+' : '' %><%= week[:average_change] %> mg/dL vs prior week)
+      (<%= week[:average_change] >= 0 ? "+" : "" %><%= week[:average_change] %> mg/dL vs prior week)
     <% else %>
       (no prior data)
     <% end %>
@@ -17,7 +17,7 @@
     <strong>Time Above Range (&gt;180):</strong>
     <%= week[:time_above_range] %>%
     <% if week[:time_above_range_change] %>
-      (<%= week[:time_above_range_change] >= 0 ? '+' : '' %><%= week[:time_above_range_change] %>%)
+      (<%= week[:time_above_range_change] >= 0 ? "+" : "" %><%= week[:time_above_range_change] %>%)
     <% else %>
       (no prior data)
     <% end %>
@@ -27,7 +27,7 @@
     <strong>Time Below Range (&lt;70):</strong>
     <%= week[:time_below_range] %>%
     <% if week[:time_below_range_change] %>
-      (<%= week[:time_below_range_change] >= 0 ? '+' : '' %><%= week[:time_below_range_change] %>%)
+      (<%= week[:time_below_range_change] >= 0 ? "+" : "" %><%= week[:time_below_range_change] %>%)
     <% else %>
       (no prior data)
     <% end %>
@@ -41,7 +41,7 @@
     <strong>Average:</strong>
     <%= month[:average] %> mg/dL
     <% if month[:average_change] %>
-      (<%= month[:average_change] >= 0 ? '+' : '' %><%= month[:average_change] %> mg/dL vs last month)
+      (<%= month[:average_change] >= 0 ? "+" : "" %><%= month[:average_change] %> mg/dL vs last month)
     <% else %>
       (no prior data)
     <% end %>
@@ -51,7 +51,7 @@
     <strong>Time Above Range (&gt;180):</strong>
     <%= month[:time_above_range] %>%
     <% if month[:time_above_range_change] %>
-      (<%= month[:time_above_range_change] >= 0 ? '+' : '' %><%= month[:time_above_range_change] %>%)
+      (<%= month[:time_above_range_change] >= 0 ? "+" : "" %><%= month[:time_above_range_change] %>%)
     <% else %>
       (no prior data)
     <% end %>
@@ -61,7 +61,7 @@
     <strong>Time Below Range (&lt;70):</strong>
     <%= month[:time_below_range] %>%
     <% if month[:time_below_range_change] %>
-      (<%= month[:time_below_range_change] >= 0 ? '+' : '' %><%= month[:time_below_range_change] %>%)
+      (<%= month[:time_below_range_change] >= 0 ? "+" : "" %><%= month[:time_below_range_change] %>%)
     <% else %>
       (no prior data)
     <% end %>
