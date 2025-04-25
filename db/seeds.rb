@@ -12,7 +12,7 @@
 require 'csv'
 require 'time'
 
-CSV.foreach(Rails.root.join("db/seeds/cgm_data_points_with_member_id.csv"), headers: true).with_index do |row, i|
+CSV.foreach(Rails.root.join("db/seeds/data_points.csv"), headers: true).with_index do |row, i|
 #   puts "Row ##{i + 1}: #{row.to_h}"
 
   member = Member.find_or_create_by!(id: row["member_id"].to_i) do |m|
