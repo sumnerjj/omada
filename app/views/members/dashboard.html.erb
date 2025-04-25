@@ -1,69 +1,91 @@
-<h1>Glucose Dashboard for <%= @member.name %></h1>
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Glucose Dashboard for <%= @member.name %></h1>
+  </header>
 
-<% week = @metrics[:last_7_days] %>
-<section>
-  <h2>Last 7 Days</h2>
-  <p>
-    <strong>Average:</strong>
-    <%= week[:average] %> mg/dL
-    <% if week[:average_change] %>
-      (<%= week[:average_change] >= 0 ? "+" : "" %><%= week[:average_change] %> mg/dL vs prior week)
-    <% else %>
-      (no prior data)
-    <% end %>
-  </p>
+  <div class="dashboard-grid">
+    <% week = @metrics[:last_7_days] %>
+    <section class="dashboard-card">
+      <h2 class="dashboard-card-title">Last 7 Days</h2>
+      <div class="metrics-container">
+        <div class="metric">
+          <div class="metric-label">Average</div>
+          <div class="metric-value"><%= week[:average] %> mg/dL</div>
+          <div class="metric-change <%= week[:average_change] && week[:average_change] < 0 ? 'better' : (week[:average_change] && week[:average_change] > 0 ? 'worse' : '') %>">
+            <% if week[:average_change] %>
+              <%= week[:average_change] >= 0 ? "+" : "" %><%= week[:average_change] %> mg/dL vs prior week
+            <% else %>
+              <span class="no-data">no prior data</span>
+            <% end %>
+          </div>
+        </div>
 
-  <p>
-    <strong>Time Above Range (&gt;180):</strong>
-    <%= week[:time_above_range] %>%
-    <% if week[:time_above_range_change] %>
-      (<%= week[:time_above_range_change] >= 0 ? "+" : "" %><%= week[:time_above_range_change] %>%)
-    <% else %>
-      (no prior data)
-    <% end %>
-  </p>
+        <div class="metric">
+          <div class="metric-label">Time Above Range (&gt;180)</div>
+          <div class="metric-value"><%= week[:time_above_range] %>%</div>
+          <div class="metric-change <%= week[:time_above_range_change] && week[:time_above_range_change] < 0 ? 'better' : (week[:time_above_range_change] && week[:time_above_range_change] > 0 ? 'worse' : '') %>">
+            <% if week[:time_above_range_change] %>
+              <%= week[:time_above_range_change] >= 0 ? "+" : "" %><%= week[:time_above_range_change] %>%
+            <% else %>
+              <span class="no-data">no prior data</span>
+            <% end %>
+          </div>
+        </div>
 
-  <p>
-    <strong>Time Below Range (&lt;70):</strong>
-    <%= week[:time_below_range] %>%
-    <% if week[:time_below_range_change] %>
-      (<%= week[:time_below_range_change] >= 0 ? "+" : "" %><%= week[:time_below_range_change] %>%)
-    <% else %>
-      (no prior data)
-    <% end %>
-  </p>
-</section>
+        <div class="metric">
+          <div class="metric-label">Time Below Range (&lt;70)</div>
+          <div class="metric-value"><%= week[:time_below_range] %>%</div>
+          <div class="metric-change <%= week[:time_below_range_change] && week[:time_below_range_change] < 0 ? 'better' : (week[:time_below_range_change] && week[:time_below_range_change] > 0 ? 'worse' : '') %>">
+            <% if week[:time_below_range_change] %>
+              <%= week[:time_below_range_change] >= 0 ? "+" : "" %><%= week[:time_below_range_change] %>%
+            <% else %>
+              <span class="no-data">no prior data</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<% month = @metrics[:current_month] %>
-<section>
-  <h2>This Month</h2>
-  <p>
-    <strong>Average:</strong>
-    <%= month[:average] %> mg/dL
-    <% if month[:average_change] %>
-      (<%= month[:average_change] >= 0 ? "+" : "" %><%= month[:average_change] %> mg/dL vs last month)
-    <% else %>
-      (no prior data)
-    <% end %>
-  </p>
+    <% month = @metrics[:current_month] %>
+    <section class="dashboard-card">
+      <h2 class="dashboard-card-title">This Month</h2>
+      <div class="metrics-container">
+        <div class="metric">
+          <div class="metric-label">Average</div>
+          <div class="metric-value"><%= month[:average] %> mg/dL</div>
+          <div class="metric-change <%= month[:average_change] && month[:average_change] < 0 ? 'better' : (month[:average_change] && month[:average_change] > 0 ? 'worse' : '') %>">
+            <% if month[:average_change] %>
+              <%= month[:average_change] >= 0 ? "+" : "" %><%= month[:average_change] %> mg/dL vs last month
+            <% else %>
+              <span class="no-data">no prior data</span>
+            <% end %>
+          </div>
+        </div>
 
-  <p>
-    <strong>Time Above Range (&gt;180):</strong>
-    <%= month[:time_above_range] %>%
-    <% if month[:time_above_range_change] %>
-      (<%= month[:time_above_range_change] >= 0 ? "+" : "" %><%= month[:time_above_range_change] %>%)
-    <% else %>
-      (no prior data)
-    <% end %>
-  </p>
+        <div class="metric">
+          <div class="metric-label">Time Above Range (&gt;180)</div>
+          <div class="metric-value"><%= month[:time_above_range] %>%</div>
+          <div class="metric-change <%= month[:time_above_range_change] && month[:time_above_range_change] < 0 ? 'better' : (month[:time_above_range_change] && month[:time_above_range_change] > 0 ? 'worse' : '') %>">
+            <% if month[:time_above_range_change] %>
+              <%= month[:time_above_range_change] >= 0 ? "+" : "" %><%= month[:time_above_range_change] %>%
+            <% else %>
+              <span class="no-data">no prior data</span>
+            <% end %>
+          </div>
+        </div>
 
-  <p>
-    <strong>Time Below Range (&lt;70):</strong>
-    <%= month[:time_below_range] %>%
-    <% if month[:time_below_range_change] %>
-      (<%= month[:time_below_range_change] >= 0 ? "+" : "" %><%= month[:time_below_range_change] %>%)
-    <% else %>
-      (no prior data)
-    <% end %>
-  </p>
-</section>
+        <div class="metric">
+          <div class="metric-label">Time Below Range (&lt;70)</div>
+          <div class="metric-value"><%= month[:time_below_range] %>%</div>
+          <div class="metric-change <%= month[:time_below_range_change] && month[:time_below_range_change] < 0 ? 'better' : (month[:time_below_range_change] && month[:time_below_range_change] > 0 ? 'worse' : '') %>">
+            <% if month[:time_below_range_change] %>
+              <%= month[:time_below_range_change] >= 0 ? "+" : "" %><%= month[:time_below_range_change] %>%
+            <% else %>
+              <span class="no-data">no prior data</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
