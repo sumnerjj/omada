@@ -10,18 +10,22 @@
 
 
 require 'csv'
+require 'time'
 
-csv_path = Rails.root.join('db/seeds/cgm_data_points_with_member_id.csv')
+CSV.foreach(Rails.root.join("db/seeds/cgm_data_points_with_member_id.csv"), headers: true).with_index do |row, i|
+#   puts "Row ##{i + 1}: #{row.to_h}"
 
-CSV.foreach(csv_path, headers: true) do |row|
-  member = Member.find_or_create_by!(id: row["member_id"]) do |m|
+  member = Member.find_or_create_by!(id: row["member_id"].to_i) do |m|
     m.name = "Imported Member #{row['member_id']}"
   end
 
+  tested_at = Time.strptime(row["tested_at"].strip, "%m/%d/%y %H:%M")
+  tz_offset = row["tz_offset"].tr("“”", '"').strip
+
   ContinuousGlucoseLevel.create!(
     member: member,
-    value: row["value"],
-    tested_at: row["tested_at"],
-    tz_offset: row["tz_offset"]
+    value: row["value"].to_i,
+    tested_at: tested_at,
+    tz_offset: tz_offset
   )
 end
