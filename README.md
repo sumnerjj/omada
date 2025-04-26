@@ -6,20 +6,16 @@ Take Home project for Omada Health: Glucose Metric Calculator
 - The current implementation assumes the viewer of the dashboard is using UTC time. When aggregating stats with the given definitions, using a different time zone will give different results. So as a follow-up, we may want to adjust the default time zone, or allow a user to set their own time zone.
 
 * Follow-ups
-- Allow a user to set their own time zone.
-- Caching for user stats.
-- Authentication
+- Caching for user stats. Consider rails-native read-through cache with Redis.
 - Graphs/visualizations for user stats
+- Authentication
+- Allow a user to set their own time zone.
 
 * Ruby version
 ruby 3.2.2
 
 * Rails version
 Rails 8.0.2
-
-* System dependencies
-
-* Configuration
 
 * Database creation
 bin/rails db:migrate
@@ -30,9 +26,13 @@ bin/rails db:seed
 * How to run the test suite
 bundle exec rspec spec/
 
-* Services (job queues, cache servers, search engines, etc.)
+* Run local server
+bin/rails server 
 
-* Deployment instructions
+* API Usage
+Params: member id, timeframe (last_7_days or current_month)
+Example:
+curl "http://127.0.0.1:3000/members/1/metrics?timeframe=last_7_days"
 
 * Definitions
 - Average Glucose (mg/dL): The sum of all glucose values in a specific time frame (week/month)
