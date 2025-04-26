@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_24_235604) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_26_192045) do
   create_table "continuous_glucose_levels", force: :cascade do |t|
     t.integer "member_id", null: false
     t.integer "value"
