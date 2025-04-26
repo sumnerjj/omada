@@ -1,5 +1,53 @@
 require "rails_helper"
 
+RSpec.describe "Members Dashboard", type: :request do
+  let!(:member) { Member.create!(name: "Test User") }
+
+  describe "GET /members/:id/dashboard" do
+    context "with non-existent member ID" do
+        it "returns 404 not found" do
+          get dashboard_member_path(id: 999)
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+      
+
+    context "when member has no glucose readings" do
+      it "renders dashboard without crashing" do
+        get dashboard_member_path(member)
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include("Glucose Dashboard for Test User")
+        expect(response.body).to include("no prior data") # From the safe nil-handling in view
+      end
+    end
+
+    context "when member has many glucose readings" do
+      before do
+        # Create 10,000 readings
+        readings = []
+        10_000.times do |i|
+          readings << ContinuousGlucoseLevel.new(
+            member: member,
+            value: rand(50..250),
+            tested_at: Time.zone.now - rand(0..60).days,
+            tz_offset: "-07:00",
+          )
+        end
+        ContinuousGlucoseLevel.import(readings) # fast bulk insert
+      end
+
+      it "calculates metrics efficiently" do
+        expect {
+          get dashboard_member_path(member)
+        }.to perform_under(2.seconds).sample(1)
+
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include("Glucose Dashboard for Test User")
+      end
+    end
+  end
+end
+
 RSpec.describe "Members Dashboard Time Windows", type: :request do
   let(:member) { Member.create!(name: "Time Test Member") }
   let(:tz_offset) { "-05:00" }
